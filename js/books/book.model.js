@@ -1,3 +1,5 @@
+import { BOOK_COLUMNS } from "../constants.js";
+
 class BookModel {
   constructor({
     isbn = "Unknown ISBN",
@@ -10,6 +12,8 @@ class BookModel {
     subtitle = "No subtitle",
     website = "https://example.com",
     status = "unread",
+    rating = null,
+    comment = "",
   }) {
     this.title = title;
     this.author = author;
@@ -24,12 +28,20 @@ class BookModel {
     this.subtitle = subtitle;
     this.website = website;
     this.status = status;
+    this.rating = rating;
+    this.comment = comment;
   }
 
   getDetails() {
     return `${this.title} by ${
       this.author
     }, published in ${this.published.getFullYear()}`;
+  }
+
+  getReadableStatus() {
+    return BOOK_COLUMNS.find((column) => column.value === this.status)
+      ? BOOK_COLUMNS.find((column) => column.value === this.status).label
+      : "Unknown Status";
   }
 }
 

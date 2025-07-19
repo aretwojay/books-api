@@ -82,6 +82,24 @@ class BookController {
     }
   }
 
+  async addBook(bookData) {
+    try {
+      const books = await this.getBooks();
+      const newBook = new BookModel(bookData);
+      console.log("Adding book:", newBook);
+      books.push(newBook);
+      console.log("Added book:", newBook);
+      localStorage.setItem("books", JSON.stringify(books));
+      this.view.renderBooks(books);
+    } catch (error) {
+      console.error("Error adding book:", error);
+      throw new BookErrorController(
+        "Une erreur s'est produite lors de l'ajout du livre.",
+        { cause: error }
+      );
+    }
+  }
+
   async updateBook(bookId, bookData) {
     try {
       const books = await this.getBooks();
@@ -89,9 +107,11 @@ class BookController {
       if (bookIndex === -1) {
         throw new BookErrorController("Livre non trouvé");
       }
-      books[bookIndex] = { ...books[bookIndex], ...bookData };
+      books[bookIndex] = new BookModel({ ...books[bookIndex], ...bookData });
+      console.log("Updated book:", books[bookIndex], bookData);
       localStorage.setItem("books", JSON.stringify(books));
-      this.view.render(books);
+      this.view.renderBooks(books);
+      this.view.renderSingleBook(books[bookIndex]);
     } catch (error) {
       console.error("Error updating book:", error);
       throw new BookErrorController(

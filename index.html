@@ -11,6 +11,21 @@
     <title>Document</title>
   </head>
   <body class="min-h-screen overflow-hidden bg-gray-100">
+    <!-- Nav -->
+    <nav
+      class="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div
+        class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+      >
+        <a href="/index.html" class="flex items-center">
+          <span
+            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+            >Bibliothèque</span
+          >
+        </a>
+      </div>
+    </nav>
     <!-- Main modal -->
     <div
       id="modal-edit"
@@ -18,7 +33,7 @@
       aria-hidden="true"
       class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full"
     >
-      <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+      <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5"
@@ -56,7 +71,7 @@
           <!-- Modal body -->
           <form id="book-form">
             <input name="book-id" type="hidden" />
-            <div class="grid gap-4 mb-4 sm:grid-cols-2">
+            <div class="grid gap-4 mb-4">
               <div>
                 <label
                   for="category"
@@ -76,6 +91,84 @@
                   <option id="finished" value="finished">Abandonné</option>
                 </select>
               </div>
+              <div class="max-w-xs mx-auto">
+                <label
+                  for="counter-input"
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                  >Note :</label
+                >
+                <div class="relative flex items-center">
+                  <button
+                    type="button"
+                    id="decrement-button"
+                    data-input-counter-decrement="counter-input"
+                    class="shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                  >
+                    <svg
+                      class="w-2.5 h-2.5 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 2"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 1h16"
+                      />
+                    </svg>
+                  </button>
+                  <input
+                    type="text"
+                    name="rating"
+                    id="counter-input"
+                    data-input-counter
+                    data-input-counter-min="0"
+                    data-input-counter-max="5"
+                    class="shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 text-center"
+                    placeholder="Note"
+                    required
+                  />
+                  <button
+                    type="button"
+                    id="increment-button"
+                    data-input-counter-increment="counter-input"
+                    class="shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                  >
+                    <svg
+                      class="w-2.5 h-2.5 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label
+                  for="comment"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Ecrire un commentaire</label
+                >
+                <textarea
+                  id="comment"
+                  name="comment"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Entrez votre commentaire ici..."
+                ></textarea>
+              </div>
             </div>
             <div class="flex items-center space-x-4">
               <button
@@ -83,6 +176,244 @@
                 class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Mettre à jour
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal add book -->
+    <div
+      id="modal-add-book"
+      tabindex="-1"
+      aria-hidden="true"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 md:h-full"
+    >
+      <div class="relative p-4 w-full max-w-3xl h-full md:h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+          >
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Ajouter un livre
+            </h3>
+            <button
+              data-modal-toggle="modal-add-book"
+              type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <form id="add-book-form">
+            <div class="grid gap-4 mb-4">
+              <div>
+                <label
+                  for="book-title"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Titre du livre</label
+                >
+                <input
+                  type="text"
+                  name="title"
+                  id="book-title"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Entrez le titre du livre"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="book-author"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Auteur</label
+                >
+                <input
+                  type="text"
+                  name="author"
+                  id="book-author"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Entrez le nom de l'auteur"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="isbn"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >ISBN</label
+                >
+                <input
+                  type="text"
+                  name="isbn"
+                  id="isbn"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Entrez l'ISBN du livre"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="book-pages"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Pages</label
+                >
+                <input
+                  type="number"
+                  name="pages"
+                  id="book-pages"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  min="0"
+                  placeholder="Entrez le nombre de pages"
+                />
+              </div>
+              <div>
+                <label
+                  for="book-website"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Site web</label
+                >
+                <input
+                  type="url"
+                  name="website"
+                  id="book-website"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Entrez l'URL du site web du livre"
+                />
+              </div>
+              <div>
+                <label
+                  for="book-subtitle"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Sous-titre</label
+                >
+                <input
+                  type="text"
+                  name="subtitle"
+                  id="book-subtitle"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Entrez le sous-titre du livre"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="book-category"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Statut</label
+                >
+                <select
+                  id="book-category"
+                  name="category"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                >
+                  <option id="unread" value="unread">Non lu</option>
+                  <option id="reading" value="reading">
+                    En cours de lecture
+                  </option>
+                  <option id="read" value="read">Lu</option>
+                  <option id="finished" value="finished">Abandonné</option>
+                </select>
+              </div>
+              <div class="max-w-xs mx-auto">
+                <label
+                  class="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                  >Note :</label
+                >
+                <div class="relative flex items-center">
+                  <button
+                    type="button"
+                    data-input-counter-decrement="counter-input"
+                    class="shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                  >
+                    <svg
+                      class="w-2.5 h-2.5 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 2"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 1h16"
+                      />
+                    </svg>
+                  </button>
+                  <input
+                    type="text"
+                    name="rating"
+                    data-input-counter
+                    data-input-counter-min="0"
+                    data-input-counter-max="5"
+                    class="shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 text-center"
+                    placeholder="Note"
+                    required
+                  />
+                  <button
+                    type="button"
+                    data-input-counter-increment="counter-input"
+                    class="shrink-0 bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                  >
+                    <svg
+                      class="w-2.5 h-2.5 text-gray-900 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label
+                  for="comment"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Ecrire un commentaire</label
+                >
+                <textarea
+                  id="comment"
+                  name="comment"
+                  rows="4"
+                  class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Entrez votre commentaire ici..."
+                ></textarea>
+              </div>
+              <button
+                id="add-book-button"
+                type="button"
+                class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                Ajouter le livre
               </button>
             </div>
           </form>
@@ -154,9 +485,19 @@
       </ul>
     </div>
     <div id="default-styled-tab-content">
+      <div class="flex justify-end items-center mb-4 px-4">
+        <button
+          data-modal-target="modal-add-book"
+          data-modal-toggle="modal-add-book"
+          class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Ajouter un livre
+        </button>
+      </div>
+
       <div class="relative overflow-x-auto p-8" id="book-list-unread-section">
         <div
-          class="grid sm:grid-cols-3 gap-4 h-screen overflow-y-auto w-full pr-3 pb-[200px]"
+          class="grid sm:grid-cols-3 gap-4 max-h-screen overflow-y-auto w-full pr-3 pb-[200px]"
           id="book-list-unread"
         ></div>
       </div>
@@ -165,7 +506,7 @@
         id="book-list-reading-section"
       >
         <div
-          class="grid sm:grid-cols-3 gap-4 h-screen overflow-y-auto w-full pr-3 pb-[200px]"
+          class="grid sm:grid-cols-3 gap-4 max-h-screen overflow-y-auto w-full pr-3 pb-[200px]"
           id="book-list-reading"
         ></div>
       </div>
@@ -174,7 +515,7 @@
         id="book-list-read-section"
       >
         <div
-          class="grid sm:grid-cols-3 gap-4 h-screen overflow-y-auto w-full pr-3 pb-[200px]"
+          class="grid sm:grid-cols-3 gap-4 max-h-screen overflow-y-auto w-full pr-3 pb-[200px]"
           id="book-list-read"
         ></div>
       </div>
@@ -184,10 +525,108 @@
         id="book-list-finished-contacts"
       >
         <div
-          class="grid sm:grid-cols-3 gap-4 h-screen overflow-y-auto w-full pr-3 pb-[200px]"
+          class="grid sm:grid-cols-3 gap-4 max-h-screen overflow-y-auto w-full pr-3 pb-[200px]"
           id="book-list-finished"
         ></div>
       </div>
+    </div>
+
+    <!-- TOAST -->
+    <div
+      id="toast-success"
+      class="fixed opacity-0 bottom-2 right-4 flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+      role="alert"
+    >
+      <div
+        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200"
+      >
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"
+          />
+        </svg>
+        <span class="sr-only">Check icon</span>
+      </div>
+      <div class="ms-3 text-sm font-normal" id="toast-success-content">
+        Item moved successfully.
+      </div>
+      <button
+        type="button"
+        class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        data-dismiss-target="#toast-success"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close</span>
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      id="toast-danger"
+      class="fixed opacity-0 bottom-2 right-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800"
+      role="alert"
+    >
+      <div
+        class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200"
+      >
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"
+          />
+        </svg>
+        <span class="sr-only">Error icon</span>
+      </div>
+      <div class="ms-3 text-sm font-normal" id="toast-danger-content">
+        Item has been deleted.
+      </div>
+      <button
+        type="button"
+        class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        data-dismiss-target="#toast-danger"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close</span>
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+      </button>
     </div>
   </body>
 

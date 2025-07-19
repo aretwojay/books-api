@@ -3,8 +3,10 @@ import { BookController } from "./books/book.controller.js";
 const bookController = new BookController();
 
 async function init() {
-  const books = await bookController.getBooks();
-  bookController.view.renderBooks(books);
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("isbn");
+  const book = await bookController.getBookById(id);
+  bookController.view.renderSingleBook(book);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
